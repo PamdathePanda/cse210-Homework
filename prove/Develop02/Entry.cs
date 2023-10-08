@@ -13,7 +13,8 @@ public class Entry
         _userResponse = Response;
 
     }
-    public string ReturnString(){
-        return $"Date:{_date} Prompt:{_prompt} Response:{_userResponse}";
+    public string ReturnString()
+    {
+        return $"Date:{_date}, Prompt:{_prompt}, Response:{_userResponse}";
     }
 }

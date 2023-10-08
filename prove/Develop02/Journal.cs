@@ -6,43 +6,39 @@ using System.Runtime.CompilerServices;
 public class Journal
 {
     private List<Entry> entries;
-    private string[] prompts = 
-    {
-        "Hi",
-        "hello",
-        "hold on"
-    };
-
+    private string fileName = "";
     public Journal()
     {
         entries = new List<Entry>();
+        
     }
     
 
     public void NewEntry()
-        {
+    {
+        PromptHolder promptHolder = new PromptHolder();
         Console.WriteLine("Is this Journl Entry from today? y/n");
-        string userinput = Console.ReadLine();
-        string Date = DateTime.Now.ToString("MMMM dd yyyy");
-        switch(userinput.ToLower())
+        string userInput = Console.ReadLine();
+        string date = DateTime.Now.ToString("MMMM dd yyyy");
+        switch(userInput.ToLower())
         {
             case "y":
-                Console.WriteLine($"Great Today's Date is {Date}");
+                Console.WriteLine($"Great Today's Date is {date}");
                 break;
 
             case "n":
                 Console.WriteLine("What is the date? dd/mm/yyyy");
-                Date = Console.ReadLine();
+                date = Console.ReadLine();
                 break;
 
             default:
                 Console.WriteLine("Please Type Y/N");
                 return;
         }
-        string Prompt = prompts[new Random().Next(prompts.Length)];
-        Console.WriteLine(Prompt);
-        string Response = Console.ReadLine();
-        entries.Add(new Entry(Date, Prompt, Response));
+        string randomPrompt = promptHolder.ChooseRandomPrompt();
+        Console.WriteLine(randomPrompt);
+        string response = Console.ReadLine();
+        entries.Add(new Entry(date, randomPrompt, response));
         
     }
     public void DisplayEntrys()
@@ -50,6 +46,36 @@ public class Journal
         foreach (var entry in entries)
         {
             Console.WriteLine(entry.ReturnString());
+        }
+
+    }
+    public void SaveJournal()
+    {
+        if(fileName == "")
+        {
+        Console.WriteLine("What is the name of the file?");
+        fileName = Console.ReadLine();
+        }
+        using(StreamWriter outputFile = new StreamWriter(fileName))
+        {  
+            foreach (var item in entries)
+            outputFile.WriteLine(item.ReturnString());
+        }
+    }
+    public void LoadJournal()
+    {
+        entries.Clear();
+        if(fileName == "")
+        {
+            Console.WriteLine("What is the name of the file?");
+            fileName = Console.ReadLine();
+        }
+        string[] lines= System.IO.File.ReadAllLines(fileName);
+        foreach (string line in lines)
+        {
+            string[] chuncks = line.Split(",");
+            Console.WriteLine($"{chuncks[0]} {chuncks[1]} {chuncks[2]}");
+            entries.Add(new Entry(chuncks[0], chuncks[1], chuncks[2]));
         }
 
     }

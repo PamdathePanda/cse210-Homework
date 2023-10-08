@@ -6,7 +6,8 @@ class Program
 {
     static void Main()
     {
-        Journal MyJournal = new Journal();
+        Journal journal = new Journal();
+        PromptHolder promptHolder = new PromptHolder();
         
         bool exit = false;
         while (exit == false)
@@ -14,26 +15,35 @@ class Program
             Console.WriteLine("1. Write in Journal");
             Console.WriteLine("2. Display Journal");
             Console.WriteLine("3. Save Journal As File");
-            Console.WriteLine("4. Open Journal");
+            Console.WriteLine("4. Load Journal From File");
+            Console.WriteLine("5. Make a new Prompt");
+            Console.WriteLine("6. Display Prompts");
+            Console.WriteLine("7. Exit");
             Console.WriteLine("Enter your Choice");
             string menuChoice = Console.ReadLine();
             
             switch (menuChoice)
             {
                 case "1":
-                    MyJournal.NewEntry();
+                    journal.NewEntry();
                     break;
                 case "2":
-                    MyJournal.DisplayEntrys();
+                    journal.DisplayEntrys();
                     break;
                 case "3":
-                    Console.WriteLine("3");
+                    journal.SaveJournal();
                     break;
                 case "4":
-                    Console.WriteLine("4");
+                    journal.LoadJournal();
                     break;
-                case "5" :
-                    Console.WriteLine("5");
+                case "5":
+                    promptHolder.CreatePrompt();
+                    break;
+                case "6":
+                    promptHolder.DisplayPrompts();
+                    break;
+                case "7" :
+                    exit = true;
                     break;
                 default:
                     Console.WriteLine("Please make a Selection");
