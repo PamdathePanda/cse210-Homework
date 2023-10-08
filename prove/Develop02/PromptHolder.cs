@@ -57,10 +57,10 @@ public class PromptHolder
     }
     private void SavePrompts()
     {
-        using(StreamWriter outputfile = new StreamWriter("prompts.txt"))
+        using(StreamWriter outputFile = new StreamWriter("prompts.txt"))
         {  
             foreach (var item in prompts)
-            outputfile.WriteLine(item.ReturnString());
+            outputFile.WriteLine(item.ReturnString());
         }
     }
 

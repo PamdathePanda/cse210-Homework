@@ -7,7 +7,8 @@ public class Prompt
     {
         _prompt = inputPrompt;
     }
-    public string ReturnString(){
+    public string ReturnString()
+    {
         return _prompt;
     }
 }
