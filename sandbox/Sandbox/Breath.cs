@@ -1,37 +1,43 @@
-class Breathing_Activity : Activity
-{
-    private int length;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.Marshalling;
 
-
-public Breathing_Activity(int type) : base(type)
+class Breath
 {
-    SetDiscription("This activity is designed to promote relaxation by guiding you through slow, mindful breathing. It encourages you to clear your mind and concentrate on your breath as you inhale and exhale");
-}
+    List<string> anim = new List<string>();
+    public Breath()
+    {
+        anim.Add("|");
+        anim.Add("/");
+        anim.Add("-");
+        anim.Add("\\");
+        anim.Add("|");
+        anim.Add("/");
+        anim.Add("-");
+        anim.Add("\\");
+    }
+    public void Time(int length)
+    {
 
-public void Breath()
-{
-    Start();
-    length = GetLength();    
-    DateTime startTime = DateTime.Now;
+   DateTime startTime = DateTime.Now;
     DateTime futureTime = startTime.AddSeconds(length);
     int i = 0;
     int seconds = 8;
     bool BreathSwitch = true;
     while (DateTime.Now < futureTime)
     {   
-        if (seconds >= 6)
+        if (seconds >= 8)
         {
             seconds = 0;
             switch (BreathSwitch)
             {
                 case true:
                     Console.Clear();
-                    Console.WriteLine("Breath In...");
+                    Console.WriteLine("Breath In");
                     BreathSwitch = false;
                     break;
                 case false:
                     Console.Clear();    
-                    Console.WriteLine("Breath Out...");
+                    Console.WriteLine("Breath Out");
                     BreathSwitch = true;
                     break;
             } 
@@ -39,7 +45,7 @@ public void Breath()
         string s = anim[i];
         Console.Write(s);
         Thread.Sleep(1000);
-        Console.Write("\b \b");
+        Console.Write("\b \b"); // Erase the + character
         i++;
         if (i >= 8)
         {
@@ -48,10 +54,7 @@ public void Breath()
         seconds++;        
 
     }
-    
-    End();
+
+    }
 
 }
-
-}
-

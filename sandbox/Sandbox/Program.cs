@@ -9,29 +9,14 @@ using System.Runtime.InteropServices;
 namespace Demo {
    class Program 
    {
-
-      public static List<string> listWords = new List<string>();
-      static void Main(string[] args) 
-      {
-      
-         string _verse = Console.ReadLine();
-         LetsGo(_verse);
-         string verse = string.Join(" ", listWords);
-         Console.WriteLine(verse);
+      static public void Main(){
+         Console.WriteLine("How many Seconds");
+         string input = Console.ReadLine();
+         int length = int.Parse(input);
+         Breath breath = new Breath();
+         breath.Time(length); 
       }
-      
-      
-      static void LetsGo(string Verse){
-         string[] words = Verse.Split(new char[] {':', ' '},StringSplitOptions.RemoveEmptyEntries);
-         foreach (string word in words)
-         {
-            Console.WriteLine(word);
-            listWords.Add(word);
-         }
-            
-        
-      }
-
 
    }
+
 }
