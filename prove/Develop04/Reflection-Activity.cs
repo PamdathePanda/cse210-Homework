@@ -53,7 +53,7 @@ class Reflection_Activity : Activity
         {
             Console.WriteLine(Question());
             Wait(5);
-        }
+        }   
         End();
     }
     private string Prompt()
