@@ -1,13 +1,22 @@
 public class SimpleGoal : Goal {
 
     private bool _isComplete = false;
+    public SimpleGoal(){
 
+
+    }
+        public SimpleGoal(string Name, string Description, int Score, bool Completed){
+        base.Score = Score;
+        base.Description = Description;
+        base.Name = Name;
+        _isComplete = Completed;
+    }
     public override int Progress()
     {
         if (_isComplete == false)
         {
             _isComplete = true;
-            return GainScore();            
+             return GainScore();                 
         }
         else{
             Console.WriteLine("This Goal is already completed");
@@ -15,7 +24,7 @@ public class SimpleGoal : Goal {
         }
 
     }
-    public override string ReturnGoal()
+    public override void ReturnGoal()
     {
         if (_isComplete)
         {
@@ -25,8 +34,9 @@ public class SimpleGoal : Goal {
         {
             Console.WriteLine($"[-] {base.Name}, {base.Description}");
         }
-
-        return ""; 
     }
-
+    public override string SaveInfo()
+    {
+        return $"Simple*{base.Name}*{base.Description}*{base.Score}*{_isComplete}";
+    }
 }

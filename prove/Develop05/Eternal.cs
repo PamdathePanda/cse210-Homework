@@ -4,15 +4,22 @@ public class EternalGoal : Goal{
     public EternalGoal(){
         
     }
+    public EternalGoal(string Name, string Description, int Score){
+        base.Score = Score;
+        base.Description = Description;
+        base.Name = Name;
+    }
     public override int Progress()
     {
         return GainScore();
     }
-    public override string ReturnGoal()
+    public override void ReturnGoal()
     {
-        Console.WriteLine($"Name: {base.Name}, Score: {base.Score}, Description: {base.Description}");
-
-        return "3"; 
+        Console.WriteLine($"[-] {base.Name}, {base.Description}"); 
+    }
+        public override string SaveInfo()
+    {
+        return $"Eternal*{base.Name}*{base.Description}*{base.Score}";
     }
 
 

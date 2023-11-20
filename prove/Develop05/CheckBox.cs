@@ -1,12 +1,20 @@
 using System.Reflection.PortableExecutable;
 
 public class CheckBoxGoal : Goal{
-    private bool completed = false;
+    private bool _completed = false;
     private int _checksCompleted;
     private int _checks;
     private int _bonus;
     public CheckBoxGoal() {
 
+    }
+    public CheckBoxGoal(string Name, string Description, int Score, int Checks, int ChecksCompleted, bool Completed){
+        base.Score = Score;
+        base.Description = Description;
+        base.Name = Name;
+        _checks = Checks;
+        _checksCompleted = ChecksCompleted;
+        _completed = Completed;
     }
     public override void Initiate()
     {
@@ -18,11 +26,11 @@ public class CheckBoxGoal : Goal{
     }
     public override int Progress()
     {
-        if (!completed){
+        if (!_completed){
             _checksCompleted ++;
             if (_checksCompleted >= _checks){
                 ChangeScore("+", _bonus);
-                completed = true;
+                _completed = true;
                 return GainScore();
             }
             else{
@@ -35,7 +43,7 @@ public class CheckBoxGoal : Goal{
         }
 
     }
-    public override string ReturnGoal()
+    public override void ReturnGoal()
     {
         if (_checksCompleted >= _checks){
             Console.WriteLine($"[X] {base.Name}, {base.Description}, {_checksCompleted}/{_checks}");
@@ -44,10 +52,9 @@ public class CheckBoxGoal : Goal{
             Console.WriteLine($"[-] {base.Name}, {base.Description}, {_checksCompleted}/{_checks}");
 
         }
-
-
-
-
-       return ""; 
     }  
+        public override string SaveInfo()
+    {
+        return $"CheckBox*{base.Name}*{base.Description}*{base.Score}*{_checks}*{_checksCompleted}*{_completed}";
+    }
 }

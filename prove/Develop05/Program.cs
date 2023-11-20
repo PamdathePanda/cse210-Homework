@@ -20,14 +20,15 @@ class Program
             Console.WriteLine($"Score: {_totalScore}");
             Console.WriteLine("1: Create Goals");
             Console.WriteLine("2: List Goals");
-            Console.WriteLine("5: Show Score");
-            Console.WriteLine("6: Complete a Goal");
+            Console.WriteLine("3: Show Score");
+            Console.WriteLine("4: Complete a Goal");
+            Console.WriteLine("5: Save");
+            Console.WriteLine("6: Load");
             Console.WriteLine("7: Quit");
-
 
             choice = int.Parse(Console.ReadLine());
             int start;
-
+            int index;
             switch (choice)
             {
                 case 1:
@@ -35,7 +36,6 @@ class Program
                     Console.WriteLine("2: Create CheckBox Goal");
                     Console.WriteLine("3: Create Eternal Goal"); 
                     choice = int.Parse(Console.ReadLine());
-                    int index;
                     switch (choice)
                     {
             
@@ -71,12 +71,9 @@ class Program
                     }
                     break;
                 case 3:
+                    Console.WriteLine($"Your Score is {_totalScore}");
                     break;
                 case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
                     start = 1;
                     if (goals.Count() <= 0){
                         Console.WriteLine("There are no Goals to Complete");
@@ -94,6 +91,50 @@ class Program
                     Thread.Sleep(2);
                     
                     break;
+                case 5:
+                //Save
+                    Console.WriteLine("What is the UserName?");
+                    string fileName = Console.ReadLine();
+                    using(StreamWriter outputFile = new StreamWriter($"{fileName}.txt"))
+                    {  
+                        outputFile.WriteLine(_totalScore);
+                        for (index = 0; index < goals.Count; index++)
+                        {
+                                outputFile.WriteLine(goals[index].SaveInfo());
+                        }
+                    }
+                    break;
+                case 6:
+                //Load
+                    Console.WriteLine("What is the name of the file?");
+                    fileName = Console.ReadLine();
+                    bool firstLine = true;
+                    string[] lines= System.IO.File.ReadAllLines($"{fileName}.txt");
+                    foreach (string line in lines)
+                    {
+                        if (firstLine == true)
+                        {
+                            _totalScore = int.Parse(line);
+                            firstLine = false;
+                        }
+                        else{
+                            string[] chunck = line.Split("*");
+                            Console.WriteLine($"{chunck[0]}");
+                            switch (chunck[0]){
+                                case "Simple":
+                                    goals.Add(new SimpleGoal(chunck[1],chunck[2],int.Parse(chunck[3]),bool.Parse(chunck[4])));
+                                    break;
+                                case "CheckBox":
+                                    goals.Add(new CheckBoxGoal(chunck[1],chunck[2],int.Parse(chunck[3]),int.Parse(chunck[4]),int.Parse(chunck[5]),bool.Parse(chunck[6])));
+                                    break;
+                                case "Eternal":
+                                    goals.Add(new EternalGoal(chunck[1],chunck[2],int.Parse(chunck[3])));
+                                    break;
+                            }
+                        }
+
+                    }
+                    break;
                 case 7:
                     menuLoop = false;
                     break;
@@ -101,9 +142,8 @@ class Program
                     Console.WriteLine("Invalid choice");
                     break;
             }
-
+            Thread.Sleep(2);
             
         }
-        
     }
 }

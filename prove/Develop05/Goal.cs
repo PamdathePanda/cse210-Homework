@@ -24,9 +24,6 @@ public abstract class Goal{
                 break;
         }
     }
-    public string ReturnName(){
-        return _name;
-    }
     public virtual void Initiate(){
         Console.WriteLine("What is the name of the goal? :");
         _name = Console.ReadLine();
@@ -34,14 +31,14 @@ public abstract class Goal{
         _description = Console.ReadLine();
         Console.WriteLine("How Many Points is it worth? :");
         _score = int.Parse(Console.ReadLine());
-        
-
     }
     public int GainScore(){
         Console.WriteLine($"You Scored! nice job! You Scored:{_score}");
         return _score;
     }
-    public abstract string ReturnGoal();
+    public abstract string SaveInfo();
+
+    public abstract void ReturnGoal();
 
 
     public int Score
