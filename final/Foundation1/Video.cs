@@ -19,18 +19,8 @@ public class Video{
         comments = Comments;
     }
 
-    private int GetNumComments(){
-        return comments.Count();
-    }
-    
-    //public void AddComment(string name, string text){
-    //    comments.Add(new Comment(name, text));
-    //}
     public void DisplayInfo(){
-        Console.WriteLine($"Video Title:{_title}, Author:{_author}, Length in Minutes:{_length}, Number of Comments:{GetNumComments()}");
-        DisplayComments();
-    }
-    private void DisplayComments(){
+        Console.WriteLine($"Video Title:{_title}, Author:{_author}, Length in Minutes:{_length}, Number of Comments:{comments.Count()}");
         foreach(var comment in comments){
             Console.WriteLine(comment.ReturnInfo());
         }
